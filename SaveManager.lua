@@ -204,15 +204,15 @@ local SaveManager = {} do
 			local name = Options.SaveManager_ConfigName.Value
 
 			if name:gsub(' ', '') == '' then 
-				return self.Library:Notify('Invalid config name (empty)', 2)
+				return self.Library:Notify('Invalid File name (empty)', 2)
 			end
 
 			local success, err = self:Save(name)
 			if not success then
-				return self.Library:Notify('Failed to save config: ' .. err)
+				return self.Library:Notify('Failed to save File: ' .. err)
 			end
 
-			self.Library:Notify(string.format('Created config %q', name))
+			self.Library:Notify(string.format('Created File %q', name))
 
 			Options.SaveManager_ConfigList.Values = self:RefreshConfigList()
 			Options.SaveManager_ConfigList:SetValues()
@@ -222,10 +222,10 @@ local SaveManager = {} do
 
 			local success, err = self:Load(name)
 			if not success then
-				return self.Library:Notify('Failed to load config: ' .. err)
+				return self.Library:Notify('Failed to load File: ' .. err)
 			end
 
-			self.Library:Notify(string.format('Loaded config %q', name))
+			self.Library:Notify(string.format('Loaded File %q', name))
 		end)
 
 		section:AddButton('Overwrite File', function()
@@ -233,16 +233,16 @@ local SaveManager = {} do
 
 			local success, err = self:Save(name)
 			if not success then
-				return self.Library:Notify('Failed to overwrite config: ' .. err)
+				return self.Library:Notify('Failed to overwrite File: ' .. err)
 			end
 
-			self.Library:Notify(string.format('Overwrote config %q', name))
+			self.Library:Notify(string.format('Overwrote File %q', name))
 		end)
 		
 		section:AddButton('Autoload File', function()
 			local name = Options.SaveManager_ConfigList.Value
 			writefile(self.Folder .. '/settings/autoload.txt', name)
-			SaveManager.AutoloadLabel:SetText('Current autoload config: ' .. name)
+			SaveManager.AutoloadLabel:SetText('Current AutoLoad File: ' .. name)
 			self.Library:Notify(string.format('Set %q to auto load', name))
 		end)
 
